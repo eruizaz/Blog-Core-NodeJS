@@ -1,0 +1,23 @@
+<div class="form_favourites">
+<% if (session.user) { %>
+<% var nombreYPost = "f"+session.user.id+"p"+post.id; %>
+   <a href="#" onclick="$('#d<%= nombreYPost %>').submit();"><input type="image" src="/images/trash.png"></a>
+   <form action="/users/<%= session.user.id %>/favourites/<%= post.id %>" method="POST" id="d<%= nombreYPost %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <% for (var i = 1; i <= 5; i++) { %>
+         
+         <a href="#" onclick="$('#v<%= nombreYPost %>').val(<%= i %>); $('#<%= nombreYPost %>').submit()">
+         <% if (i <= post.best) { %>
+            <input type="image" src="/images/star.png">
+         <% } else { %>
+            <input type="image" src="/images/star2.png">
+         <% } %>
+         </a>
+   <% } %>
+   </form>
+   <form action="/users/<%= session.user.id %>/favourites/<%= post.id %>" method="POST" id="<%= nombreYPost %>">
+   <input type="hidden" name="_method" value="PUT">
+   <input type="hidden" name="best" value="5" id="v<%= nombreYPost %>">   
+   </form>
+<% } %>
+</div>
